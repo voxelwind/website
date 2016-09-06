@@ -1,4 +1,4 @@
-const request = require('request');
+const fetch = require('node-fetch');
 const LRU = require('lru-cache');
 
 function DiscourseService(base, cat) {
@@ -10,22 +10,35 @@ function DiscourseService(base, cat) {
     });
 }
 
-DiscourseService.prototype.getAnnouncements = function(cb) {
+DiscourseService.prototype.getAnnouncementThreads = function(cb) {
     const cachedResult = this.cache.get('announcements');
     if (cachedResult) {
-        return setImmediate(cb, null, cachedResult);
+        return Promise.resolve(cachedResult);
     }
-    request.get(this.baseUri + '/c/' + this.category + '.json', { json: true }, function(err, response, body) {
-        if (err) {
-            cb(err);
-        } else {
-            if (response.statusCode != 200) {
-                return cb(new Error("Couldn't get forum data."));
-            }
-            const topics = body.topic_list.topics;
-            this.cache.set('announcements', topics);
-            cb(null, topics);
+    return fetch(this.baseUri + '/c/' + this.category + '.json').then(function(result) {
+        if (result.status != 200) {
+            throw new Error("Couldn't get forum data.");
         }
+
+        const jsonBody = result.json();
+        this.cache.set('announcements', jsonBody);
+        return jsonBody;
+    }.bind(this));
+};
+
+DiscourseService.prototype.getTopicById = function(id) {
+    const cachedResult = this.cache.get('first-post:' + id);
+    if (cachedResult) {
+        return Promise.resolve(cachedResult);
+    }
+    return fetch(this.baseUri + '/t/' + id + '.json').then(function(result) {
+        if (result.status != 200) {
+            throw new Error("Couldn't get forum data.");
+        }
+
+        const jsonBody = result.json();
+        this.cache.set('first-post:' + id, jsonBody);
+        return jsonBody;
     }.bind(this));
 };
 

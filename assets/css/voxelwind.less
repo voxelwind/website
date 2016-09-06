@@ -6,7 +6,7 @@ Voxelwind website CSS
 
 @primary-color: rgb(69, 174, 63);
 @secondary-color: rgb(40, 132, 60);
-@link-color: darken(@secondary-color, 20%);
+@link-color: darken(@primary-color, 5%);
 /* See https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/ */
 @font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
@@ -34,6 +34,7 @@ nav {
   /* Larger than tablet */
   @media (min-width: @bp-larger-than-tablet) {
     height: 400px;
+    padding: 0 0 1em;
   }
 
   /* Larger than desktop */
@@ -66,4 +67,20 @@ nav {
 
 #footer {
   text-align: center;
+  padding-top: 2rem;
+}
+
+.announcement-title {
+  font-size: 135%;
+  text-align: center;
+  padding-bottom: 1rem;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    cursor: hand;
+
+  }
 }

@@ -27,9 +27,19 @@ html
         .container
             .row#about
                 .twelve.columns
-                    h2 What is Voxelwind?
+                    h2.header-section What is Voxelwind?
                     p Voxelwind is a server platform for #[i Minecraft: Pocket Edition] which is intended to provide a high-performance, scalable, and reliable platform to host #[i Minecraft: Pocket Edition] servers.
                     p Voxelwind has been built from the ground up to help you focus on developing the best servers and plugins. Voxelwind provides an flexible and fluent API to work with, supports multi-threaded level ticking, and aims to support thousands of concurrent players at a time.
+            .row#news
+                .twelve.columns
+                    h2.header-section News
+                    .container
+                        .row
+                            each announcement in announcements
+                                .six.columns
+                                    .announcement-title
+                                        a(href=discourse_base_uri + "/t/" + announcement.id)= announcement.title
+                                    p= announcement.excerpt
             .row#footer
                 .twelve.columns
                     p Copyright &copy; 2016 The Voxelwind Project.
