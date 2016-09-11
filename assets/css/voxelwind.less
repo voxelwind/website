@@ -11,21 +11,51 @@ Voxelwind website CSS
 
 nav {
   .u-full-width();
-  height: 60px;
   background: #222;
   position: fixed;
-  #logo {
-    margin-top: 10px;
-    margin-left: 15px;
-  }
   z-index: 9999;
   top: 0;
+  .u-cf();
+
+  ul {
+    overflow: hidden;
+    padding: 0;
+    display: inline-block;
+    margin: 0;
+    li {
+      display: block;
+      float: left;
+      padding-left: 1.5rem;
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+      margin-bottom: 0;
+      margin-top: 0.2rem;
+      a {
+        text-decoration: none;
+      }
+
+      @media (min-width: @bp-larger-than-mobile) {
+        visibility: hidden;
+      }
+
+      @media (min-width: @bp-larger-than-tablet) {
+        visibility: visible;
+      }
+    }
+
+    li:first-child {
+      padding-bottom: 0;
+      margin-top: 0;
+      margin-left: -0.5rem;
+      visibility: visible !important;
+    }
+  }
 }
 
 #welcome {
   @media (min-width: @bp-larger-than-mobile) {
     height: auto;
-    margin-top: 4em;
+    margin-top: 3em;
     padding: 1em 0;
   }
 
