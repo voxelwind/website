@@ -10,7 +10,7 @@ function DiscourseService(base, cat) {
     });
 }
 
-DiscourseService.prototype.getAnnouncementThreads = function(cb) {
+DiscourseService.prototype.getAnnouncementThreads = function() {
     const cachedResult = this.cache.get('announcements');
     if (cachedResult) {
         return Promise.resolve(cachedResult);
