@@ -13,11 +13,7 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.get('/', function(req, res) {
     discourse.getAnnouncementThreads().then(function(listing) {
         const topics = listing.topic_list.topics;
-        // Need to sort the topics by date
-        topics.sort(function(one, two) {
-            return new Date(one.created_at) - new Date(two.created_at);
-        });
-        const latestTwo = (topics.length <= 2 ? topics : topics.slice(topics.length - 2)).reverse();
+        const latestTwo = (topics.length <= 2 ? topics : topics.slice(0, 2));
         // fetch these topics
         const promises = [];
         latestTwo.forEach(function(topic) {

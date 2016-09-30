@@ -15,7 +15,7 @@ DiscourseService.prototype.getAnnouncementThreads = function() {
     if (cachedResult) {
         return Promise.resolve(cachedResult);
     }
-    return fetch(this.baseUri + '/c/' + this.category + '.json').then(function(result) {
+    return fetch(this.baseUri + '/c/' + this.category + '.json?order=created').then(function(result) {
         if (result.status != 200) {
             throw new Error("Couldn't get forum data.");
         }
